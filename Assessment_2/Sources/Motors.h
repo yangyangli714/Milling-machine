@@ -13,7 +13,6 @@ void starterup();
 void x_motor(int x);
 void y_motor(int y);
 void z_motor(int z);
-void spindle(int dir, int depth, int z);
 void manual_control(int x, int y, int z, int p);
 void x_reset();
 void y_reset();

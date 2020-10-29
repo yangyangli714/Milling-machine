@@ -77,7 +77,7 @@ void starterup() {
 // Stepper motor x function - allows stepper motor to rotate
 void x_motor(int x){
 	starterup();
-	if (x < 0 || x > 1000) { // need to be checked
+	if (x < -5000 || x > 5000) { // need to be checked
 		Term1_SetColor(clRed, clWhite);
 		Term1_SendStr("Out of range");
 		Term1_SetColor(clWhite, clBlack);
@@ -96,7 +96,7 @@ void x_motor(int x){
 // Stepper motor y function - allows stepper motor to rotate
 void y_motor(int y){
 	starterup();
-	if (y < 0 || y > 500) { // need to be checked
+	if (y < -3000 || y > 3000) { // need to be checked
 		Term1_SetColor(clRed, clWhite);
 		Term1_SendStr("Out of range");
 		Term1_SetColor(clWhite, clBlack);
@@ -115,7 +115,7 @@ void y_motor(int y){
 // Stepper motor z function - allows stepper motor to rotate
 void z_motor(int z){
 	starterup();
-	if (z < 0 || z > 500){ // need to be checked
+	if (z < 0 || z > 100){ // need to be checked
 		Term1_SetColor(clRed, clWhite);
 		Term1_SendStr("Out of range");
 		Term1_SetColor(clWhite, clBlack);
@@ -127,22 +127,6 @@ void z_motor(int z){
 			delay(5);
 			z_step_NegVal();
 			delay(5);
-		}
-	}
-}
-
-// Spindle motor function - allows the spindle to power up
-void spindle(int dir, int z){
-	starterup();
-	if (dir == 2){
-		for(int i = 0; i <= 20; i++){
-			z_dir_PutVal(1);
-			z_motor(1);
-		}
-	}else if(dir == 1){
-		for(int i = 0; i <= 20; i++){
-			z_dir_PutVal(0);
-			z_motor(1);
 		}
 	}
 }
@@ -240,13 +224,6 @@ void manual_control(int x, int y, int z, int p) {
 				prompt_decrease();
 			}
 		}
-//		else{
-//			if(c == 'd' || c == 'a' || c == 'w' || c == 's' || c == 'i' || c == 'j' || c == 'f' || c == 'g'){
-//
-//			}else{
-//				Term1_SendStr("Pleases use the above keys");
-//			}
-//		}
 	} while (c != 'q'); // press q to to back
 }
 
@@ -280,7 +257,7 @@ void y_reset(){
 void z_reset(){
 	 z_dir_PutVal(0);
 	  int i = 1;
-	  while(i <= 3000){
+	  while(i <= 1000){
 		  z_step_NegVal();
 		  delay(1);
 		  z_step_NegVal();

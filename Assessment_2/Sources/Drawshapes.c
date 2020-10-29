@@ -176,7 +176,9 @@ void draw_oval() {
 	GUI_clear();
 	// Initialize parameter
 	int radius = 50;
-	int x, y, r2, i;
+	int r2, i;
+	int x = 0;
+	int y = 0;
 	int x_before = 0, y_before = 0;
 	r2 = radius * radius;
 	Term1_MoveTo(10, 13);

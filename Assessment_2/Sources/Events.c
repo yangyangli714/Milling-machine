@@ -75,10 +75,14 @@ void Cpu_OnNMI(void)
 ** ===================================================================
 */
 extern volatile char c;
+extern volatile bool complete_command;
 void Inhr1_OnRxChar(void)
 {
     // Receive char and place in char c
-	Inhr1_RecvChar(&c);
+	if (ERR_OK == Inhr1_RecvChar(&c))
+		{
+		      complete_command = true;
+		}
 }
 
 

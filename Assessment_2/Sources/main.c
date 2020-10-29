@@ -80,6 +80,7 @@
 #include <Drawshapes.h>
 
 volatile char c;
+volatile bool complete_command = false;
 //volatile char buffer[100];
 //volatile uint8 index = 0;
 //volatile bool command_complete = false;
@@ -102,46 +103,46 @@ int main(void)
   /* Write your code here */
   /* For example: for(;;) { } */
   for (;;) {
-
-  		__asm ("wfi");
-  		// Manual Control
-  		if (c == '1') {
-  			GUI_clear();
-  			GUI_manual(x, y, z, p);
-  			manual_control(x, y, z, p);
-  			GUI_clear();
-  			GUI_main(x, y, z, p);
-  			GUI_Menu();
-  			c = 0;
-  		// Draw shapes
-  		} else if (c == '2') {
-  			GUI_clear();
-  			Term1_MoveTo(5, 9);
-  			GUI_shapes();
-  			draw_shapes();
-  			GUI_clear();
-  			GUI_main(x, y, z, p);
-  			GUI_Menu();
-  			PWM1_SetRatio8(255);
-  			c = 0;
-  		// Reset the position for all motors
-  		} else if(c == '3'){
-  			GUI_clear();
-  			reset_position_GUI();
-  			reset_position();
-  			GUI_clear();
-  			GUI_main(x, y, z, p);
-  			GUI_Menu();
-  			change_x(0);
-  			change_y(0);
-  			change_z(0);
-  			c = 0;
-  		}
-  		// if 1 or 2 is not press shows a error messesage
-//  		else {
-//  			GUI_clear();
-//  			Term1_SendStr("Error, try again!\n\r");
-//  		}
+	  while(!complete_command){
+	  __asm ("wfi");
+	  }
+	  // Manual Control
+	  if (c == '1') {
+		  GUI_clear();
+		  GUI_manual(x, y, z, p);
+		  manual_control(x, y, z, p);
+		  GUI_clear();
+		  GUI_main(x, y, z, p);
+		  GUI_Menu();
+		  c = 0;
+		  // Draw shapes
+	  } else if (c == '2') {
+		  GUI_clear();
+		  Term1_MoveTo(5, 9);
+		  GUI_shapes();
+		  draw_shapes();
+		  GUI_clear();
+		  GUI_main(x, y, z, p);
+		  GUI_Menu();
+		  PWM1_SetRatio8(255);
+		  c = 0;
+		  // Reset the position for all motors
+	  } else if(c == '3'){
+		  GUI_clear();
+		  reset_position_GUI();
+		  reset_position();
+		  GUI_clear();
+		  GUI_main(x, y, z, p);
+		  GUI_Menu();
+		  change_x(0);
+		  change_y(0);
+		  change_z(0);
+		  c = 0;
+	  }
+	  // if 1, 2, 3 is not press shows a error messesage
+	  else if (c != '1' && c != '2' && c != '3' && c!=0){
+		  Term1_SendStr("Error, try again!\n\r");
+	  }
 }
 
   /*** Don't write any code pass this line, or it will be deleted during code generation. ***/
