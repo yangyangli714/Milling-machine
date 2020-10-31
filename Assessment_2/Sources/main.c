@@ -143,6 +143,7 @@ int main(void)
 	  else if (c != '1' && c != '2' && c != '3' && c!=0){
 		  Term1_SendStr("Error, try again!\n\r");
 	  }
+	  c = 0;
 }
 
   /*** Don't write any code pass this line, or it will be deleted during code generation. ***/
